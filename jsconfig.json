@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6", // Cambiado a ES6 para soporte moderno
     "module": "esnext",
     "baseUrl": "./",
     "moduleResolution": "node",
@@ -14,6 +14,12 @@
       "dom",
       "dom.iterable",
       "scripthost"
-    ]
-  }
+    ],
+    "allowSyntheticDefaultImports": true, // Permite importar módulos sin exportación predeterminada
+    "esModuleInterop": true // Mejora la interoperabilidad con módulos CommonJS
+  },
+  "exclude": [
+    "node_modules", // Excluye la carpeta node_modules
+    "dist" // Excluye la carpeta de salida (si existe)
+  ]
 }
