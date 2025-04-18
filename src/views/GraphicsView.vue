@@ -1,50 +1,44 @@
 <template>
-    <div class="container py-5">
-      <div class="row justify-content-center">
-        <div class="col-lg-8">
-          <div class="card shadow-lg border-0">
-            <div class="card-header bg-primary text-white text-center">
-              <h5 class="mb-0">Gráfico de Ventas</h5>
-            </div>
-            <div class="card-body bg-light">
-              <div style="height: 400px;">
-                <LineChart :chartData="chartData" :chartOptions="chartOptions" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4 shadow p-4 rounded bg-white">
+      <Line :chart-data="chartData" :options="chartOptions" />
     </div>
-  </template>
-  
+  </div>
+    
+</template>
   
   <script>
-  import LineChart from '@/components/Line.vue'
+  import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+  import { defineComponent } from 'vue'
+  import Line from '@/components/Line.vue'
   
-  export default {
+  // Registrar los componentes de ChartJS
+  ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+  
+  export default defineComponent({
+    name: 'BarChart',
     components: {
-      LineChart
+      Line
     },
     data() {
       return {
+        // Inicialización adecuada de chartData
         chartData: {
-          labels: ['Enero', 'Febrero', 'Marzo'],
+          labels: ['January', 'February', 'March'], // Etiquetas del eje X
           datasets: [
             {
-              label: 'Ventas',
-              data: [40, 55, 75],
-              fill: false,
-              borderColor: 'rgb(75, 192, 192)',
-              tension: 0.1
+              label: 'Dataset Example', // Leyenda del gráfico
+              backgroundColor: '#f87979', // Color de las barras
+              data: [40, 20, 12] // Valores para las barras
             }
           ]
         },
+        // Opciones del gráfico
         chartOptions: {
           responsive: true,
           maintainAspectRatio: false
         }
       }
     }
-  }
+  })
   </script>
-  

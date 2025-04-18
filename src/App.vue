@@ -1,21 +1,19 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router';
 
-
 const link = [
-  { name: 'Home', path: '/', class: 'nav-link' },
-  { name: 'Login', path: '/login', class: 'nav-link' },
-  { name: 'Register', path: '/register', class: 'nav-link' },
-  { name: 'Juegos', path: '/games', class: 'nav-link' },
-  { name: 'Graficas', path: '/Graphics', class: 'nav-link'}
+  { name: 'Home', path: '/', class: 'nav-link custom-link' },
+  { name: 'Iniciar', path: '/login', class: 'nav-link custom-link' },
+  { name: 'Juegos', path: '/games', class: 'nav-link custom-link' },
+  { name: 'Graficas', path: '/Graphics', class: 'nav-link custom-link' }
 ];
 </script>
 
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
       <div class="container-fluid">
-        <RouterLink to="/" class="navbar-brand">GifApp</RouterLink>
+        <RouterLink to="/" class="navbar-brand fw-bold text-white">🎮 GifApp</RouterLink>
         <button
           class="navbar-toggler"
           type="button"
@@ -44,3 +42,40 @@ const link = [
     </div>
   </div>
 </template>
+
+<style scoped>
+/* Fondo con gradiente llamativo */
+.custom-navbar {
+  background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo para los enlaces */
+.custom-link {
+  color: #fff;
+  margin: 0 0.5rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  position: relative;
+}
+
+.custom-link::after {
+  content: "";
+  display: block;
+  width: 0%;
+  height: 2px;
+  background: white;
+  transition: width 0.3s ease;
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+}
+
+.custom-link:hover::after {
+  width: 100%;
+}
+
+.custom-link:hover {
+  color: #ffd700 !important; /* Amarillo dorado al pasar el mouse */
+}
+</style>
