@@ -7,6 +7,7 @@ import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import GamesView from '../views/GamesView.vue'
 import GraphicsView from '../views/GraphicsView.vue'
+import ScoresView from '../views/ScoresView.vue'
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -35,9 +36,14 @@ const router = createRouter({
         component: GraphicsView,
     },
     {
+        path: '/Scores',
+        name: 'scores',
+        component: ScoresView
+    },
+    {
       path: '/:pathMatch(.*)*',
       redirect: '/',
-    },
+    }
   ],
 })
 
