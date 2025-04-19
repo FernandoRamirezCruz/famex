@@ -43,6 +43,12 @@ export default {
       scores: [27, 0, 0, 0],
 
     };
-  }
+  },
+  props: {
+    game_name: {
+      type: String,
+      required: true
+    }
+  },
 };
 </script>

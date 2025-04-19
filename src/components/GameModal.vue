@@ -11,7 +11,7 @@
             <p>¿Quieres continuar con este juego?</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" @click="closeModal">Sí</button>
+            <button type="button" class="btn btn-secondary" @click="confirmGame">Sí</button>
             <button type="button" class="btn btn-primary" @click="closeModal">No</button>
           </div>
         </div>
@@ -23,6 +23,8 @@
 </template>
 
 <script>
+
+
 export default {
   props: {
     game_name: {
@@ -37,7 +39,17 @@ export default {
   methods: {
     closeModal() {
       this.$emit('update:showModal', false);
-    }
+    },
+    confirmGame() {
+    this.$router.push({
+        name: 'scores', // Cambiado a minúsculas para coincidir
+        params: {
+            game_name: this.game_name,
+        },
+    });
+}
+
+
   },
 }
 </script>

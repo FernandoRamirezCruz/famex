@@ -36,10 +36,12 @@ const router = createRouter({
         component: GraphicsView,
     },
     {
-        path: '/Scores',
-        name: 'scores',
-        component: ScoresView
-    },
+      path: '/Scores/:game_name', // Ruta con un parámetro dinámico
+      name: 'scores',
+      props: true,
+      component: ScoresView
+  }
+  ,
     {
       path: '/:pathMatch(.*)*',
       redirect: '/',
