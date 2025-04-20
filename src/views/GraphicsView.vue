@@ -1,5 +1,42 @@
 <template>
-  <div class="container d-flex justify-content-center align-items-center min-vh-100">
+  <div class="container px-4">
+  <div class="row gx-5">
+    <div class="col">
+          <!-- Menú para nombres de juegos -->
+    <select class="form-select" aria-label="Select Games">
+      <option selected>Seleccione un juego</option>
+      <option v-for="(game, index) in games_name" :key="index" :value="index + 1">
+        {{ game }}
+      </option>
+    </select>
+    </div>
+
+    <div class="col">
+      <select class="form-select" aria-label="Select Labels">
+      <option selected>Seleccione una etiqueta</option>
+      <option v-for="(label, index) in labels" :key="index" :value="index + 1">
+        {{ label }}
+      </option>
+    </select>
+    </div>
+
+    <div class="col">
+      <select class="form-select" aria-label="Select Games">
+      <option selected>Seleccione el periodo</option>
+      <option v-for="(periodo, index) in periodo" :key="index" :value="index + 1">
+        {{ periodo }}
+      </option>
+    </select>
+    </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  <div class="container d-flex justify-content-center align-items-center min-vh-50">
     <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4 shadow p-4 rounded bg-white">
       <Line :chart-data="chartData" :options="chartOptions" />
     </div>
@@ -33,6 +70,9 @@
             }
           ]
         },
+        labels: ['Score', 'Tiempo más corto', 'Tiempo Promedio', 'Velocidad Máxima', 'Velocidad Promedio'],
+        games_name: ['Simon dice', 'Tres en Discordia', 'Toca y sigue', 'Tira y cacha'],
+        periodo: ['Hoy', 'Ultima Semana', 'Ultimo mes', 'Ultimo año'],
         // Opciones del gráfico
         chartOptions: {
           responsive: true,
