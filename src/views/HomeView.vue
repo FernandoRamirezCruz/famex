@@ -1,31 +1,46 @@
 <template>
     <div class="inicio">
-      <!-- Header -->
-      <header class="header">
-        <h1>🧸 Juguetes para Microgravedad</h1>
-        <p>Diseñados para explorar, aprender y jugar en el espacio.</p>
-        <button @click="irAPrototipos">Ver Prototipos</button>
-      </header>
+      <!-- Sección 1: Portada -->
+      <section class="hero">
+        <h1>🚀 SPARKS: Esferas para Microgravedad</h1>
+        <p>Explora, juega y entrena en el espacio de una forma única.</p>
+        <button @click="irAAbout">Descubre Más</button>
+      </section>
   
-      <!-- Sección de características -->
-      <section class="features">
-        <div class="feature-card">
-          <h2>🌟 Diseño Seguro</h2>
-          <p>Materiales livianos, flexibles y aprobados para uso espacial.</p>
+      <!-- Sección 2: Qué son las Sparks -->
+      <section class="about" id="about">
+        <h2>¿Qué son las SPARKS?</h2>
+        <p>SPARKS son esferas inteligentes diseñadas para juegos y ejercicios en entornos de microgravedad, ayudando a los astronautas a mantenerse activos mientras se divierten.</p>
+      </section>
+  
+      <!-- Sección 3: Beneficios -->
+      <section class="benefits">
+        <h2>Beneficios de SPARKS</h2>
+        <div class="benefit-cards">
+          <div class="benefit-card">
+            <h3>🏋️ Ejercicio Funcional</h3>
+            <p>Fomenta el movimiento y la fuerza en ambientes espaciales.</p>
+          </div>
+          <div class="benefit-card">
+            <h3>📈 Medición de Rendimiento</h3>
+            <p>Registra estadísticas como velocidad, coordinación y fuerza.</p>
+          </div>
+          <div class="benefit-card">
+            <h3>🎮 Juegos Dinámicos</h3>
+            <p>Actividades lúdicas para reducir el estrés y mejorar el ánimo.</p>
+          </div>
         </div>
-        <div class="feature-card">
-          <h2>🎯 Enfoque Educativo</h2>
-          <p>Estimula la creatividad y el aprendizaje en gravedad cero.</p>
-        </div>
-        <div class="feature-card">
-          <h2>🚀 Innovación Espacial</h2>
-          <p>Prototipos únicos adaptados a condiciones extremas.</p>
-        </div>
+      </section>
+  
+      <!-- Sección 4: Innovación -->
+      <section class="innovation">
+        <h2>Innovación para el Futuro Espacial</h2>
+        <p>Diseñadas con materiales de última generación y sensores de alta precisión, SPARKS redefine la manera de entrenar en el espacio.</p>
       </section>
   
       <!-- Footer -->
       <footer class="footer">
-        <p>© 2025 Proyecto Juguetes Microgravedad. Todos los derechos reservados.</p>
+        <p>© 2025 SPARKS Project. Todos los derechos reservados.</p>
       </footer>
     </div>
   </template>
@@ -34,82 +49,126 @@
   export default {
     name: 'App',
     methods: {
-      irAPrototipos() {
-        alert('Mostrando prototipos... 🚀');
-        // Aquí más adelante podrías redireccionar a otra vista
+      irAAbout() {
+        const seccionAbout = document.getElementById('about');
+        if (seccionAbout) {
+          seccionAbout.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     }
   }
   </script>
   
   <style scoped>
+  /* Todo tu mismo CSS se mantiene igual */
   .inicio {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(to right, #6a11cb, #2575fc);
-    color: #fff;
+    color: #ffffff;
+    background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+    scroll-behavior: smooth;
   }
   
-  .header {
+  /* Secciones */
+  section {
+    padding: 100px 20px;
     text-align: center;
-    padding: 100px 20px 50px;
+    animation: fadeIn 1.5s ease-in;
   }
   
-  .header h1 {
+  .hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  }
+  
+  .hero h1 {
     font-size: 3rem;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
   
-  .header p {
+  .hero p {
     font-size: 1.5rem;
     margin-bottom: 30px;
   }
   
-  .header button {
-    background-color: #fff;
+  .hero button {
+    background-color: #ffffff;
     color: #6a11cb;
     border: none;
     padding: 15px 30px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     border-radius: 30px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: background 0.3s;
   }
   
-  .header button:hover {
+  .hero button:hover {
     background-color: #e0e0e0;
   }
   
-  .features {
+  .about, .innovation {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    margin: 20px;
+  }
+  
+  .benefits {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .benefit-cards {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
-    padding: 50px 20px;
-    flex-wrap: wrap;
+    margin-top: 40px;
   }
   
-  .feature-card {
-    background-color: rgba(255, 255, 255, 0.1);
+  .benefit-card {
+    background-color: rgba(255, 255, 255, 0.15);
     padding: 30px;
     border-radius: 15px;
-    width: 260px;
-    text-align: center;
-    transition: 0.3s;
+    width: 280px;
+    transition: transform 0.3s;
   }
   
-  .feature-card:hover {
+  .benefit-card:hover {
+    transform: translateY(-10px);
     background-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-5px);
   }
   
+  /* Footer */
   .footer {
     text-align: center;
     margin-top: auto;
     padding: 20px;
     font-size: 0.9rem;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Animaciones */
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2.2rem;
+    }
+    .hero p {
+      font-size: 1.2rem;
+    }
+    .benefit-card {
+      width: 90%;
+    }
   }
   </style>
   
