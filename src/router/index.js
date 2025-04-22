@@ -8,9 +8,10 @@ import RegisterView from '../views/RegisterView.vue'
 import GamesView from '../views/GamesView.vue'
 import GraphicsView from '../views/GraphicsView.vue'
 import ScoresView from '../views/ScoresView.vue'
+
 const router = createRouter({
-    history: createWebHistory(),
-    routes: [
+  history: createWebHistory(),
+  routes: [
     {
       path: '/',
       name: 'home',
@@ -27,26 +28,50 @@ const router = createRouter({
       component: RegisterView,
     },
     {
-        path: '/games',
-        name: 'games',
-        component: GamesView,   
-    },{
-        path: '/Graphics',
-        name: 'graphics',
-        component: GraphicsView,
+      path: '/games',
+      name: 'games',
+      component: GamesView,   
     },
     {
-      path: '/Scores/:game_name', // Ruta con un parámetro dinámico
+      path: '/graphics',
+      name: 'graphics',
+      component: GraphicsView,
+    },
+    {
+      path: '/scores/:game_name',
       name: 'scores',
       props: true,
-      component: ScoresView
-  }
-  ,
+      component: ScoresView,
+    },
     {
       path: '/:pathMatch(.*)*',
       redirect: '/',
     }
   ],
+})
+
+// Rutas que requieren autenticación
+const privateRoutes = ['/games', '/graphics', '/scores/:game_name']
+
+// Guard global para proteger rutas privadas
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('token')
+
+  // Comprobar si la ruta a la que se intenta acceder es privada
+  const isPrivateRoute = privateRoutes.some(route => {
+    // Rutas exactas
+    if (route === to.path) return true
+    // Comprobar rutas dinámicas con una expresión regular
+    const regex = new RegExp(`^${route.replace(/:[^\s/]+/, '[^/]+')}$`)
+    return regex.test(to.path)
+  })
+
+  // Si la ruta es privada y no hay token, redirigir a login
+  if (isPrivateRoute && !token) {
+    next('/login')
+  } else {
+    next()
+  }
 })
 
 export default router
