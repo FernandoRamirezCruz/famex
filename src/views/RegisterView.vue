@@ -3,7 +3,7 @@
     <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4 shadow p-4 rounded bg-white">
       <h2 class="text-center mb-4">Registro</h2>
 
-      <form @submit="handleSubmit">
+      <form @submit.prevent="handleSubmit">
         <!-- Name input -->
         <div class="form-outline mb-3">
           <label class="form-label" for="registerName">Nombre completo</label>
@@ -83,8 +83,11 @@ const REGISTER = gql`
 
 const { mutate: register, loading } = useMutation(REGISTER, {
   onDone: ({ data }) => {
-    localStorage.setItem('token', data.register.token)
-    router.push('/') // Redirige al home, o donde tu vayas a mandarlo
+    const token = data.register.token;
+    localStorage.setItem('token', token);
+    setTimeout(() => {
+    router.push('/games');
+  }, 100); // Redirige al home, o donde tu vayas a mandarlo
   },
   onError: (error) => {
     errorMsg.value = error.message
@@ -110,6 +113,19 @@ function handleSubmit(e) {
     name: name.value,
     email: email.value,
     password: password.value,
-  })
+  }).then(response => {
+      const token = response.data.register.token
+      console.log('Nuevo token recibido:', token)  // Verifica el valor del token
+
+      // Guardamos el token en localStorage
+      localStorage.setItem('token', token)
+
+      // Redirigir a la página de juegos
+      router.push('/games') 
+    })
+    .catch(error => {
+      console.error('Error en la petición de registro:', error)
+      errorMsg.value = 'Hubo un problema al registrarse. Inténtalo de nuevo.'
+    })
 }
 </script>

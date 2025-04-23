@@ -3,7 +3,7 @@
     <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4 shadow p-4 rounded bg-white">
       <h2 class="text-center mb-4">Login</h2>
 
-      <form @submit="handleSubmit">
+      <form @submit.prevent="handleSubmit">
         <!-- Email input -->
         <div class="form-outline mb-4">
           <label class="form-label" for="form2Example1">Email address</label>
@@ -51,6 +51,7 @@ import { ref } from 'vue'
 import gql from 'graphql-tag';
 import { useMutation } from '@vue/apollo-composable';
 import { useRouter } from 'vue-router'
+import { nextTick } from 'vue'
 
 // Estado
 const email = ref('')
@@ -73,11 +74,19 @@ const LOGIN = gql`
 
 const { mutate: login, loading } = useMutation(LOGIN, {
   onDone: ({ data }) => {
-    localStorage.setItem('token', data.login.token)
-    router.push('/') // redirige al home, aquí puedes cambiarlo a donde lo quieras mandar
+    const token = data.login.token
+    console.log('Nuevo token recibido:', token)
+
+    localStorage.setItem('token', token)
+
+    nextTick(() => {
+      console.log('Token guardado en localStorage:', localStorage.getItem('token'))
+      router.push('/games')
+    })
   },
   onError: (error) => {
-    errorMsg.value = error.message
+    console.error('Error en la mutación:', error)  // Registra el error
+    errorMsg.value = error.message  // Muestra el error en el frontend
   }
 })
 
@@ -85,6 +94,15 @@ const { mutate: login, loading } = useMutation(LOGIN, {
 function handleSubmit(e) {
   e.preventDefault()
   errorMsg.value = ''
-  login({ email: email.value, password: password.value })
+  console.log('Enviando datos para login:', email.value, password.value)
+  login({ email: email.value, password: password.value }).then(response => {
+    const token = response.data.login.token
+    localStorage.setItem('token', token)
+    router.push('/games')
+  })
+  .catch(error => {
+    console.error('Error en la petición login:', error)
+    errorMsg.value = 'Hubo un problema al iniciar sesión. Inténtalo de nuevo.'
+  })
 }
 </script>

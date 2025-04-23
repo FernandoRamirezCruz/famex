@@ -8,7 +8,10 @@ const router = useRouter()
 const token = ref(localStorage.getItem('token'))
 
 // Computado para saber si está logueado
-const isLoggedIn = computed(() => !!token.value)
+const isLoggedIn = computed(() => { 
+  return !!token.value;
+});
+
 
 // Función para cerrar sesión
 function logout() {

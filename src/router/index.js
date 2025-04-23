@@ -56,18 +56,16 @@ const privateRoutes = ['/games', '/graphics', '/scores/:game_name']
 // Guard global para proteger rutas privadas
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token')
+  console.log('Token detectado en guard:', token);
 
-  // Comprobar si la ruta a la que se intenta acceder es privada
   const isPrivateRoute = privateRoutes.some(route => {
-    // Rutas exactas
     if (route === to.path) return true
-    // Comprobar rutas dinámicas con una expresión regular
     const regex = new RegExp(`^${route.replace(/:[^\s/]+/, '[^/]+')}$`)
     return regex.test(to.path)
   })
 
-  // Si la ruta es privada y no hay token, redirigir a login
   if (isPrivateRoute && !token) {
+    console.log('Token no encontrado, redirigiendo a login')
     next('/login')
   } else {
     next()
